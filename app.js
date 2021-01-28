@@ -19,6 +19,15 @@ app.use(bodyParser.json());
 app.use(helmet());
 app.use(morgan("dev"));
 
+app.use(function (req, res, next) {
+  res.setHeader(
+    "Content-Security-Policy",
+    "script-src 'self' https://archive.org"
+  );
+  return next();
+});
+
+app.use(helmet({ contentSecurityPolicy: false }));
 app.use(localMiddleware);
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);

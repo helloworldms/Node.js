@@ -1,3 +1,5 @@
+
+
 footer.header
     .header__column
         a(href=routes.home)
@@ -6,8 +8,15 @@ footer.header
         form( action = routes.search, method="get" )
             input(type="text",placeholder="Searching by term...", name="term")
     .header__column
-        ul
+        if !user.isAuthenticated
             li
                 a(href =routes.join) join
             li
                 a(href =routes.login) Log in
+        else
+            li
+                a(href =`/videos${routes.upload}`) upload
+            li
+                a(href =routes.userDetail(user.id)) Profile
+            li
+                a(href =routes.home) Log out
