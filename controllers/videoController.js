@@ -1,23 +1,39 @@
 import routes from "../routes";
-export const home = (req, res) =>
-  res.render("home", { pageTitle: "home", videosLi });
+import Video from "../models/Video";
+
+export const home = async (req, res) => {
+  try {
+    const VideoList = await Video.find({});
+    res.render("home", { pageTitle: "home", VideoList });
+  } catch (error) {
+    console.log(error);
+    res.render("home", { pageTitle: "Home", VideoList: [] });
+  }
+};
 
 export const search = (req, res) => {
   const {
     query: { term: searchingBy },
   } = req;
-  res.render("search", { searchingBy, videosLi });
+  res.render("search", { searchingBy, VideoList });
 };
 
 export const videos = (req, res) => res.render("videos");
 
 export const getUpload = (req, res) => res.render("upload");
-export const postUpload = (req, res) => {
+export const postUpload = async (req, res) => {
   const {
-    body: { file, title, description },
+    body: { title, description },
+    file: { path },
   } = req;
-  //to do : upload and save video
-  res.redirect(routes.videoDetail(324393));
+
+  const newVideo = await Video.create({
+    fileUrl: path,
+    title,
+    description,
+  });
+  console.log(newVideo);
+  res.redirect(routes.videoDetail(newVideo.id));
 };
 
 export const videoDetail = (req, res) => res.render("videoDetail");

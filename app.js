@@ -13,6 +13,7 @@ import routes from "./routes";
 const app = express();
 
 app.set("view engine", "pug");
+app.use("/uploads", express.static("uploads"));
 app.use(cookiePaser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
