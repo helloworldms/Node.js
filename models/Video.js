@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const VideoSchema = new mongoose.Schema({
-  xl: {
+  fileUrl: {
     type: String,
     required: "File URL is required",
   },
@@ -26,5 +26,5 @@ const VideoSchema = new mongoose.Schema({
   ],
 });
 
-const model = mongoose.model(" videosLi", VideoSchema);
+const model = mongoose.model("Video", VideoSchema);
 export default model;
