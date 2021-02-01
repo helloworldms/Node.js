@@ -5,7 +5,7 @@ import helmet from "helmet";
 import cookiePaser from "cookie-parser";
 import bodyParser from "body-parser";
 import userRouter from "./routers/userRouter";
-import videoRouter from "./routers/videoRoutr";
+import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
 import { localMiddleware } from "./middlewares";
 import routes from "./routes";
