@@ -26,6 +26,22 @@ export const postJoin = async (req, res, next) => {
     // To Do: Log user in``
   }
 };
+
+export const facebookLogin = passport.authenticate("facebook");
+
+export const facebookLoginCallback = (
+  accessToken,
+  refreshToken,
+  profile,
+  cb
+) => {
+  console.log(accessToken, refreshToken, profile, cb);
+};
+
+export const postFacebookLogin = (req, res) => {
+  res.redirect(routes.home);
+};
+
 export const getLogin = (req, res) => res.render("login");
 
 export const postLogin = (req, res) =>
@@ -39,5 +55,15 @@ export const logout = (req, res) => {
 };
 
 export const editProfile = (req, res) => res.render("editProfile");
-export const userDetail = (req, res) => res.render("userDetail");
+export const userDetail = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  try {
+    const user = await User.findById(id);
+    res.render("userDetail", { pageTitle: "User Detail", user });
+  } catch (error) {
+    res.redirect(routes.home);
+  }
+};
 export const changePassword = (req, res) => res.render("changePassword");
